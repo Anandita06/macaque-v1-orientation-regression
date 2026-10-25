@@ -1,0 +1,25 @@
+# Large, externally hosted recordings
+/dataset/
+/dataset.zip
+*.mat
+*.pkl
+
+# Course materials and local metadata
+*.pdf
+.DS_Store
+**/.ipynb_checkpoints/
+
+# Python environments and generated caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Superseded/duplicate figures
+/heldout_selected_v1_neuron.png
+/load_1.py
+/task1_selected_v1_neuron81.png
+/v1_tuning_curves.png
+/selected_v1_neuron.png
+/task5_model_fits_by_noise.png
+/task5_generalization_mse.png
