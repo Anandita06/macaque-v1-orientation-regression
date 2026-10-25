@@ -1,8 +1,11 @@
-# V1 Orientation Tuning Regression
+# Regression Analysis of Macaque V1 Orientation Responses
 
-Python analyses for a neuroscience regression assignment on orientation tuning
-in macaque visual-cortex (V1) spike recordings. The task scripts use session
-`106r001p26` and selected neuron 98.
+This project analyzes electrophysiological spike recordings from macaque
+primary visual cortex (V1) during presentation of drifting gratings at eight
+orientations. It uses regression models to characterize how neuronal firing
+rates vary with stimulus orientation and to compare model fit and
+generalization. The main analyses focus on neuron 98, with additional neurons
+included for comparing responses at different noise levels.
 
 ## Analysis scripts
 
