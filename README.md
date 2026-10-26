@@ -36,12 +36,14 @@ Install Python, then from this directory run:
 
 ```powershell
 python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install -r requirements.txt
-python .\task1_tuning_curve.py
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe .\task1_tuning_curve.py
 ```
 
-Run the other task scripts the same way, substituting their filenames.
+Run the other task scripts the same way, substituting their filenames in the
+last command. Calling the environment's Python directly avoids requiring shell
+activation. The dataset must be downloaded separately and placed at the path
+shown below before running the scripts.
 
 ## Dataset
 
