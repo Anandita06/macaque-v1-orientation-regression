@@ -284,6 +284,14 @@ def descending_rank(scores: np.ndarray, index: int) -> int:
     return int(np.sum(scores > scores[index]) + 1)
 
 
+def top_neuron_scores(scores: np.ndarray, limit: int = 10) -> str:
+    """Format the highest-scoring neurons as one-based neuron IDs and scores."""
+    top_indices = np.argsort(scores)[::-1][:limit]
+    return ", ".join(
+        f"{index + 1} ({scores[index]:.4g})" for index in top_indices
+    )
+
+
 print(
     "Exploratory held-out F-score / modulation-index check "
     "(one stratified half-split; not used for selection):"
@@ -302,6 +310,31 @@ print(
     f"{recorded_v1_count}); held-out={diagnostic_test_mi[selected_v1_index]:.4f} "
     f"(rank {descending_rank(diagnostic_test_mi, selected_v1_index)}/"
     f"{recorded_v1_count})."
+)
+print("  Top 10 neurons by F-score (neuron number with score):")
+print(f"    Training half: {top_neuron_scores(diagnostic_train_f)}")
+print(f"    Held-out half: {top_neuron_scores(diagnostic_test_f)}")
+print("  Top 10 neurons by modulation index (neuron number with score):")
+print(f"    Training half: {top_neuron_scores(diagnostic_train_mi)}")
+print(f"    Held-out half: {top_neuron_scores(diagnostic_test_mi)}")
+print(
+    "Selection-method rationale:\n"
+    "  Primary: NB2 likelihood-ratio comparison of orientation versus "
+    "intercept-only count models, repeated across stratified folds. NB2 "
+    "models overdispersed spike counts and compares the full orientation "
+    "pattern with no orientation effect; fold selection stability and "
+    "separate held-out effect rankings provide a stronger check than one "
+    "in-sample ranking. It depends on the negative-binomial model assumptions "
+    "and does not itself measure predictive error from applying a fitted "
+    "model to held-out trials.\n"
+    "  Exploratory: the one-way F-score compares between-orientation "
+    "variation with trial-to-trial residual variation, so it accounts for "
+    "within-orientation variability. It is an ANOVA-style statistic and "
+    "relies on assumptions that may be imperfect for overdispersed counts. "
+    "The modulation index is a simple, scale-normalized max-minus-min "
+    "contrast, but uses only the highest and lowest orientation means and "
+    "does not account for trial variability or uncertainty. Both metrics "
+    "are therefore useful cross-checks, not the primary selection rule."
 )
 
 # Plot the selected neuron's full-session tuning curve after the examples
